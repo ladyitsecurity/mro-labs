@@ -22,20 +22,11 @@ def calculate_transformation_matrix(correlation_matrix):
 
 
 def get_normal_random_vector(n):
-    tmp_array = np.zeros((2, n))
-    for i in range(0, n):
-        tmp_array += np.random.uniform(0.5, -0.5, (2, n))
-    tmp_array /= np.sqrt(n)
-    tmp_array /= np.sqrt(1 / 12)
-    return tmp_array
+    s = np.random.normal(size=(2, n))
+    return s
 
 
 def show_vector_points(X, color='red'):
-    for x in X:
-        plt.scatter(x[0], x[1], color=color)
-
-
-def show_vector_points1(X, color='red'):
     plt.scatter(X[0, :], X[1, :], color=color)
 
 
@@ -108,20 +99,21 @@ if __name__ == '__main__':
     R1 = Constants.R1
     R2 = Constants.R2
     R3 = Constants.R3
+
     # first task
     samples1 = get_training_samples(M1, R1, 200)
     samples2 = get_training_samples(M2, R1, 200)
-    show_vector_points1(samples1)
-    show_vector_points1(samples2, color='blue')
+    show_vector_points(samples1)
+    show_vector_points(samples2, color='blue')
     plt.show()
     B_distance_with_same_correlation_matrix = get_B_distance(M1, R1, M2, R1)
     M_distance_with_same_correlation_matrix = get_M_distance(M1, M2, R1)
     # second task
     samples3 = get_training_samples(M2, R2, 200)
     samples4 = get_training_samples(M3, R3, 200)
-    show_vector_points1(samples1)
-    show_vector_points1(samples3, color='blue')
-    show_vector_points1(samples4, color='green')
+    show_vector_points(samples1)
+    show_vector_points(samples3, color='blue')
+    show_vector_points(samples4, color='green')
     plt.show()
 
     math_expectation_estimate_s1 = get_estimate_expectation(samples1)

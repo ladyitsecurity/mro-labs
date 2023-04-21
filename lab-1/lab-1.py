@@ -1,9 +1,5 @@
 import matplotlib.pyplot as plt
 import numpy as np
-
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 import Constants
 
 
@@ -91,7 +87,6 @@ def get_M_distance(M0, M1, R):
     return result.item()
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     M1 = Constants.M1
     M2 = Constants.M2
@@ -156,6 +151,3 @@ if __name__ == '__main__':
     print(
         "Bhatacharyas distance for S3(M2, R2) and S4(M3, R3): \n",
         B_distance_S3_S4, "\n")
-
-    save_generated_features('lab-1\\two_classes.npy', [samples1, samples2])
-    save_generated_features('lab-1\\three_classes.npy', [samples1, samples3, samples4])

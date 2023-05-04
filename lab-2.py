@@ -98,7 +98,7 @@ if __name__ == '__main__':
     P2 = Constants.P2
     P3 = Constants.P3
 
-    feature1, feature2 = load_features('C:\\mro_lab1\\two_classes.npy')
+    feature1, feature2 = load_features('two_classes.npy')
     x_array = np.linspace(-2, 5, 100)
     thresh = np.log(P2 / P1)
     y_array = get_bayesian_border_for_normal_classes_with_same_cor_matrix(x_array, M1, M2, R1, thresh=thresh)
@@ -136,7 +136,7 @@ if __name__ == '__main__':
     plt.title('N-P')
     plt.show()
 
-    feature1, feature3, feature4 = load_features('C:\\mro_lab1\\three_classes.npy')
+    feature1, feature3, feature4 = load_features('three_classes.npy')
     x_array = np.linspace(-4, 4, 200)
     bound_1_3 = get_bayesian_border_for_normal_classes(x_array, M1, M2, R1, R2, np.log(P2 / P1))
     bound_1_4 = get_bayesian_border_for_normal_classes(x_array, M1, M3, R1, R3, np.log(P2 / P1))

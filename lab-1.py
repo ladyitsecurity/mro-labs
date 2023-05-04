@@ -151,3 +151,7 @@ if __name__ == '__main__':
     print(
         "Bhatacharyas distance for S3(M2, R2) and S4(M3, R3): \n",
         B_distance_S3_S4, "\n")
+
+
+    save_generated_features('two_classes.npy', [samples1, samples2])
+    save_generated_features('three_classes.npy', [samples1, samples3, samples4])

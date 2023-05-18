@@ -3,6 +3,7 @@ from matplotlib import pyplot as plt
 
 import Constants
 import lab4
+import lab3
 
 
 def show(title: str, dataset0: np.array, dataset1: np.array, border_x_arr, border_y_arr, colors, labels):
@@ -43,7 +44,7 @@ def show_separating_hyperplanes(title, samples0, samples1, W_array, colors_array
         W = W_array[i]
         w = W[0]
         wn = W[1]
-        x, y = lab4.get_border_lin_classificator(w, wn, x_range)
+        x, y = lab3.get_border_lin_classificator(w, wn, x_range)
         x_borders.append(x)
         y_borders.append(y)
         x_borders.append(x + 1 / w[0])

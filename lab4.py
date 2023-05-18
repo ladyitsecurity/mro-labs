@@ -7,6 +7,7 @@ import qpsolvers
 from sklearn import svm
 import sklearn
 from sklearn.model_selection import train_test_split
+import cvxopt
 
 import Constants
 import lab1
@@ -264,7 +265,7 @@ def task2(samples0, samples1):
     sup_0_qp, sup_1_qp = separate_sup_vectors(sup_vectors_qp)
     w_qp = get_w(sup_vectors_qp, sup_lambdas_qp)
     wn_qp = get_wn(sup_vectors_qp, w_qp)
-    W_qp = np.array([[w_qp, wn_qp]])
+    W_qp = np.array([[w_qp[0], w_qp[1], wn_qp[0]]])
     utils.show.show_separating_hyperplanes('qp hyperplane', samples0, samples1, W_qp, np.array([qp_colors]), np.array([qp_labels]),
                                            np.array([qp_markers]))
     utils.show_sup_vectors(sup_0_qp, sup_1_qp)

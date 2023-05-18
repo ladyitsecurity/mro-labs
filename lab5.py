@@ -5,6 +5,7 @@ import lab1
 import lab2
 
 
+
 def get_euclidean_distance(x, y):
     x = x.reshape(2, )
     y = y.reshape(2, )

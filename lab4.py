@@ -67,8 +67,8 @@ def get_P_kernel(dataset, K, K_params):
 
 
 def show_separating_hyperplane(title, w, wn, samples0, samples1, sup_0, sup_1):
-    x_range = Constants.x_range_lab6
-    x, y = lab4.get_border_lin_classificator(w, wn, x_range)
+    x_range = Constants.x_range_lab4
+    x, y = lab2.get_border_lin_classificator(w, wn, x_range)
     utils.show.show(title, samples0, samples1, [x, x + 1 / w[0], x - 1 / w[0]], [y, y, y],
                     ['black', 'green', 'red'], ['', '', ''])
     if sup_0 is not None and sup_0.size > 0:
@@ -244,7 +244,7 @@ def task2(samples0, samples1):
     b = np.zeros(1)
     G = np.eye(dataset.shape[1]) * -1
     h = np.zeros((dataset.shape[1],))
-    lambda_array = qpsolvers.solve_qp(P, q, G, h, A, b, solver='cvxopt')
+    lambda_array = qpsolvers.solve_qp(P, q, G, h, A, b, solver='osqp')
 
     qp_colors = ['black', 'red', 'green']
     svc_colors = ['orange', 'purple', 'yellow']
@@ -322,15 +322,15 @@ def task3(samples0, samples1):
 
     # bayes
     x_array = np.arange(-1, 3, 0.01)
-    thresh = np.log(Constants.P2_lab6_task2 / Constants.P1_lab6_task2)
-    y = lab4.get_bayesian_border_for_normal_classes(x_array, Constants.M1_lab6_task1, Constants.M2_lab6_task1,
-                                                    Constants.R1_lab6_task2, Constants.R2_lab6_task2, thresh)
-    p0 = get_classification_error_for_bayes(samples0[0:2, :], Constants.M1_lab6_task1, Constants.M2_lab6_task1,
-                                            Constants.R1_lab6_task2, Constants.R2_lab6_task2, Constants.P1_lab6_task2,
-                                            Constants.P2_lab6_task2)
-    p1 = get_classification_error_for_bayes(samples1[0:2, :], Constants.M2_lab6_task1, Constants.M1_lab6_task1,
-                                            Constants.R2_lab6_task2, Constants.R1_lab6_task2, Constants.P2_lab6_task2,
-                                            Constants.P1_lab6_task2)
+    thresh = np.log(Constants.P2_lab4_task2 / Constants.P1_lab4_task2)
+    y = lab2.get_bayesian_border_for_normal_classes(x_array, Constants.M1_lab4_task1, Constants.M2_lab4_task1,
+                                                    Constants.R1_lab4_task2, Constants.R2_lab4_task2, thresh)
+    p0 = get_classification_error_for_bayes(samples0[0:2, :], Constants.M1_lab4_task1, Constants.M2_lab4_task1,
+                                            Constants.R1_lab4_task2, Constants.R2_lab4_task2, Constants.P1_lab4_task2,
+                                            Constants.P2_lab4_task2)
+    p1 = get_classification_error_for_bayes(samples1[0:2, :], Constants.M2_lab4_task1, Constants.M1_lab4_task1,
+                                            Constants.R2_lab4_task2, Constants.R1_lab4_task2, Constants.P2_lab4_task2,
+                                            Constants.P1_lab4_task2)
     bayes_error = p0 + p1
     qp_errors_array = []
     svc_errors_array = []
@@ -344,10 +344,10 @@ def task3(samples0, samples1):
         w_qp = get_w(sup_vectors_qp, sup_lambdas_qp)
         wn_qp = get_wn(sup_vectors_qp, w_qp)
         W_qp = np.array([[w_qp, wn_qp]])
-        show_separating_hyperplanes(f'C = {C} qp hyperplane', samples0, samples1, W_qp, np.array([qp_colors]),
-                                    np.array([qp_labels]), np.array([qp_markers]))
-        show_sup_vectors(sup_0_qp, sup_1_qp)
-        show_bayes_border(y, 'blue', 'bs', '|')
+        utils.show_separating_hyperplanes(f'C = {C} qp hyperplane', samples0, samples1, W_qp, np.array([qp_colors]),
+                                          np.array([qp_labels]), np.array([qp_markers]))
+        utils.show_sup_vectors(sup_0_qp, sup_1_qp)
+        utils.show_bayes_border(y, 'blue', 'bs', '|')
         plt.show()
         qp_errors_array.append(get_errors(dataset, w_qp, wn_qp))
 
@@ -358,10 +358,10 @@ def task3(samples0, samples1):
         wn_svc = clf_svc.intercept_[0]
         W_svc = np.array([[w_svc, wn_svc]])
         sup_0_svc, sup_1_svc = separate_sup_vectors(support_vectors_svc)
-        show_separating_hyperplanes(f'C = {C} svc hyperlane', samples0, samples1, W_svc, np.array([svc_colors]),
-                                    np.array([svc_labels]), np.array([svc_markers]))
-        show_sup_vectors(sup_0_svc, sup_1_svc)
-        show_bayes_border(y, 'blue', 'bs', '|')
+        utils.show_separating_hyperplanes(f'C = {C} svc hyperlane', samples0, samples1, W_svc, np.array([svc_colors]),
+                                          np.array([svc_labels]), np.array([svc_markers]))
+        utils.show_sup_vectors(sup_0_svc, sup_1_svc)
+        utils.show_bayes_border(y, 'blue', 'bs', '|')
         plt.show()
         svc_errors_array.append(get_errors(dataset, w_svc, wn_svc))
 
@@ -389,15 +389,15 @@ def task4(samples0, samples1, kernel, kernel_params):
 
     # bayes
     x_array = np.arange(-1, 3, 0.01)
-    thresh = np.log(Constants.P2_lab6_task2 / Constants.P1_lab6_task2)
-    bayes_ = lab3.get_bayesian_border_for_normal_classes(x_array, Constants.M1_lab6_task1, Constants.M2_lab6_task1,
-                                                         Constants.R1_lab6_task2, Constants.R2_lab6_task2, thresh)
-    p0 = get_classification_error_for_bayes(samples0[0:2, :], Constants.M1_lab6_task1, Constants.M2_lab6_task1,
-                                            Constants.R1_lab6_task2, Constants.R2_lab6_task2, Constants.P1_lab6_task2,
-                                            Constants.P2_lab6_task2)
-    p1 = get_classification_error_for_bayes(samples1[0:2, :], Constants.M2_lab6_task1, Constants.M1_lab6_task1,
-                                            Constants.R2_lab6_task2, Constants.R1_lab6_task2, Constants.P2_lab6_task2,
-                                            Constants.P1_lab6_task2)
+    thresh = np.log(Constants.P2_lab4_task2 / Constants.P1_lab4_task2)
+    bayes_ = lab3.get_bayesian_border_for_normal_classes(x_array, Constants.M1_lab4_task1, Constants.M2_lab4_task1,
+                                                         Constants.R1_lab4_task2, Constants.R2_lab4_task2, thresh)
+    p0 = get_classification_error_for_bayes(samples0[0:2, :], Constants.M1_lab4_task1, Constants.M2_lab4_task1,
+                                            Constants.R1_lab4_task2, Constants.R2_lab4_task2, Constants.P1_lab4_task2,
+                                            Constants.P2_lab4_task2)
+    p1 = get_classification_error_for_bayes(samples1[0:2, :], Constants.M2_lab4_task1, Constants.M1_lab4_task1,
+                                            Constants.R2_lab4_task2, Constants.R1_lab4_task2, Constants.P2_lab4_task2,
+                                            Constants.P1_lab4_task2)
     bayes_error = p0 + p1
     qp_errors_array = []
     svc_errors_array = []
@@ -451,8 +451,8 @@ def task4(samples0, samples1, kernel, kernel_params):
         plt.plot(samples1[0], samples1[1], 'b.')
 
         plt.contour(xx, yy, discriminant_func_values, levels=[-1, 0, 1], colors=['red', 'black', 'green'])
-        show_sup_vectors(sup_0_qp, sup_1_qp)
-        show_bayes_border(bayes_, 'blue', 'bs', '|')
+        utils.show_sup_vectors(sup_0_qp, sup_1_qp)
+        utils.show_bayes_border(bayes_, 'blue', 'bs', '|')
         plt.show()
 
         X_train, X_test, y_train, y_test = train_test_split(X, Y,
@@ -476,8 +476,8 @@ def task4(samples0, samples1, kernel, kernel_params):
         plt.xlim(left=Constants.left, right=Constants.right)
         plt.ylim(bottom=Constants.bot, top=Constants.top)
         plt.contour(xx, yy, discriminant_func_values_svc, levels=[-1, 0, 1], colors=['red', 'black', 'green'])
-        show_sup_vectors(sup_0_svc, sup_1_svc)
-        show_bayes_border(bayes_, 'blue', 'bs', '|')
+        utils.show_sup_vectors(sup_0_svc, sup_1_svc)
+        utils.show_bayes_border(bayes_, 'blue', 'bs', '|')
         plt.show()
 
         count_errors = 0

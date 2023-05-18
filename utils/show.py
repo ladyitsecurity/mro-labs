@@ -39,12 +39,12 @@ def show_separating_hyperplanes(title, samples0, samples1, W_array, colors_array
 
     x_borders = []
     y_borders = []
-    x_range = Constants.x_range_lab6
+    x_range = Constants.x_range_lab4
     for i in range(0, len(W_array)):
         W = W_array[i]
         w = W[0]
         wn = W[1]
-        x, y = lab3.get_border_lin_classificator(w, wn, x_range)
+        x, y = lab3.get_border_lin_classificator(W, wn, x_range)
         x_borders.append(x)
         y_borders.append(y)
         x_borders.append(x + 1 / w[0])

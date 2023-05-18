@@ -12,18 +12,18 @@ P2 = 0.5
 P3 = 0.5
 
 # task1 это task2, а task2 это task3
-M1_lab6_task1 = np.array([0, 0]).reshape(2, 1)
-M2_lab6_task1 = np.array([1.5, 1]).reshape(2, 1)
+M1_lab4_task1 = np.array([0, 0]).reshape(2, 1)
+M2_lab4_task1 = np.array([1.5, 1]).reshape(2, 1)
 
-R1_lab6_task1 = np.array(([0.07, 0.0], [0.0, 0.09]))
-R2_lab6_task1 = np.array(([0.13, 0.01], [0.02, 0.07]))
+R1_lab4_task1 = np.array(([0.07, 0.0], [0.0, 0.09]))
+R2_lab4_task1 = np.array(([0.13, 0.01], [0.02, 0.07]))
 
-R1_lab6_task2 = np.array(([0.07, 0.05], [0.05, 0.09]))
-R2_lab6_task2 = np.array(([0.13, 0.05], [0.02, 0.13]))
-P1_lab6_task2 = 0.5
-P2_lab6_task2 = 0.5
+R1_lab4_task2 = np.array(([0.07, 0.05], [0.05, 0.09]))
+R2_lab4_task2 = np.array(([0.13, 0.05], [0.02, 0.13]))
+P1_lab4_task2 = 0.5
+P2_lab4_task2 = 0.5
 
-x_range_lab6 = np.arange(-1, 3, 0.1)
+x_range_lab4 = np.arange(-1, 3, 0.1)
 left = -1
 right = 3
 top = 2

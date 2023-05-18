@@ -129,9 +129,9 @@ def get_classification_error_for_bayes(X1, M1, M2, B1, B2, P1, P2):
 
 
 if __name__ == '__main__':
-    # lab 4
-    feature1, feature2 = lab2.load_features('C:\\mro_lab1\\two_classes.npy')
-    _, feature4, feature5 = lab2.load_features('C:\\mro_lab1\\three_classes.npy')
+
+    feature1, feature2 = lab2.load_features('two_classes.npy')
+    _, feature4, feature5 = lab2.load_features('three_classes.npy')
 
     size1 = np.shape(feature1)
     size2 = np.shape(feature2)
@@ -161,7 +161,7 @@ if __name__ == '__main__':
     bayes_border_2 = get_bayesian_border_for_normal_classes(x_array, M1, M2, R1, R2, np.log(P2 / P1))
     dFisher_border_2 = get_border_lin_classificator(W2, wn2, x_array)
 
-    fig = plt.figure(figsize=(16, 7))
+    fig = plt.figure(figsize=(12, 5))
     fig = print_classificator(fig, 121, feature1, feature2, (x_array, bayes_border_1),
                               dFisher_border_1, "Fisher",
                               "Bayes", "--", ["y", "y"])
@@ -169,7 +169,7 @@ if __name__ == '__main__':
                                                    dFisher_border_2, "Fisher",
                                                    "Bayes", "--", ["y", "y"])
     show()
-    # task 4.2
+
     # Классификатор, минимизирующий СКО
     Wmse1 = get_msep_parameters(feature1, feature2)
     dMSE1 = get_border_lin_classificator(Wmse1[0:2], Wmse1[-1], x_array)
@@ -177,14 +177,13 @@ if __name__ == '__main__':
     Wmse2 = get_msep_parameters(feature1, feature4)
     dMSE2 = get_border_lin_classificator(Wmse2[0:2], Wmse1[-1], x_array)
 
-    fig1 = plt.figure(figsize=(16, 7))
+    fig1 = plt.figure(figsize=(12, 5))
     fig1 = print_classificator(fig1, 121, feature1, feature2, (x_array, bayes_border_1), dMSE1,
                                "MSE", "Bayes", "--", ["y", "y"])
     fig1 = print_classificator_for_diff_corr_matrix(fig1, 122, feature1, feature4, bayes_border_2, dMSE2, "MSE",
                                                     "Bayes", "--", ["y", "y"])
     show()
 
-    # task 4.3
     # Классификатор Роббинса-Монро
     Z0 = np.ones((size1[0] + 2, size1[1]))
     Z0[-1] = Z0[-1] * -1
@@ -216,7 +215,7 @@ if __name__ == '__main__':
         arrBorders1.append(tmpY[1])
 
     c = ["r", "orange", "y", "g", "darkgreen", "c", "b", "m"]
-    fig7 = plt.figure(figsize=(16, 7))
+    fig7 = plt.figure(figsize=(16, 5))
     fig7 = print_classificator(fig7, 121, feature1, feature2, (x_array, bayes_border_1),
                                arrBorders1[0:40:4],
                                "Bayes", "Robbins: sample B", "--", c)
@@ -231,7 +230,7 @@ if __name__ == '__main__':
         tmpY = get_border_lin_classificator(w[0:2], w[-1], x_array)
         arrBorders2.append(tmpY[1])
 
-    fig8 = plt.figure(figsize=(16, 7))
+    fig8 = plt.figure(figsize=(12, 5))
     fig8 = print_classificator_for_diff_corr_matrix(fig8, 121, feature1, feature4, bayes_border_2, arrBorders2[0:40:4],
                                                     "Bayes", "Robbins: dif B", "--", c)
     resd2 = [arrBorders2[0], arrBorders2[-1]]

@@ -5,6 +5,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 from qpsolvers import solve_qp
 from sklearn import svm
+import sklearn
 from sklearn.model_selection import train_test_split
 
 import Constants
@@ -14,7 +15,9 @@ import lab3
 from lab3 import get_classification_error_for_bayes
 from sklearn.svm import SVC, LinearSVC
 import utils.show
-from utils.show import show_separating_hyperplanes, show_sup_vectors, show_bayes_border
+# from utils.show import show_separating_hyperplanes
+# from utils.show import show_sup_vectors
+# from utils.show import show_bayes_border
 
 
 def get_svc(C, K, K_params):
@@ -262,7 +265,7 @@ def task2(samples0, samples1):
     w_qp = get_w(sup_vectors_qp, sup_lambdas_qp)
     wn_qp = get_wn(sup_vectors_qp, w_qp)
     W_qp = np.array([[w_qp, wn_qp]])
-    show_separating_hyperplanes('qp hyperplane', samples0, samples1, W_qp, np.array([qp_colors]), np.array([qp_labels]),
+    show.show_separating_hyperplanes('qp hyperplane', samples0, samples1, W_qp, np.array([qp_colors]), np.array([qp_labels]),
                                 np.array([qp_markers]))
     show_sup_vectors(sup_0_qp, sup_1_qp)
     plt.show()
@@ -386,7 +389,7 @@ def task4(samples0, samples1, kernel, kernel_params):
     # bayes
     x_array = np.arange(-1, 3, 0.01)
     thresh = np.log(Constants.P2_lab6_task2 / Constants.P1_lab6_task2)
-    bayes_ = lab4.get_bayesian_border_for_normal_classes(x_array, Constants.M1_lab6_task1, Constants.M2_lab6_task1,
+    bayes_ = lab3.get_bayesian_border_for_normal_classes(x_array, Constants.M1_lab6_task1, Constants.M2_lab6_task1,
                                                          Constants.R1_lab6_task2, Constants.R2_lab6_task2, thresh)
     p0 = get_classification_error_for_bayes(samples0[0:2, :], Constants.M1_lab6_task1, Constants.M2_lab6_task1,
                                             Constants.R1_lab6_task2, Constants.R2_lab6_task2, Constants.P1_lab6_task2,

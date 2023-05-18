@@ -265,9 +265,9 @@ def task2(samples0, samples1):
     w_qp = get_w(sup_vectors_qp, sup_lambdas_qp)
     wn_qp = get_wn(sup_vectors_qp, w_qp)
     W_qp = np.array([[w_qp, wn_qp]])
-    show.show_separating_hyperplanes('qp hyperplane', samples0, samples1, W_qp, np.array([qp_colors]), np.array([qp_labels]),
-                                np.array([qp_markers]))
-    show_sup_vectors(sup_0_qp, sup_1_qp)
+    utils.show.show_separating_hyperplanes('qp hyperplane', samples0, samples1, W_qp, np.array([qp_colors]), np.array([qp_labels]),
+                                           np.array([qp_markers]))
+    utils.show_sup_vectors(sup_0_qp, sup_1_qp)
     plt.show()
 
     clf_svc = svm.SVC(kernel="linear", C=1)

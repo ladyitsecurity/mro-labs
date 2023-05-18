@@ -239,6 +239,7 @@ if __name__ == '__main__':
     plt.title(f'minmax for 5 classes')
     x = np.arange(0, len(m_array) + 1)
     plt.plot(x, max_dist_array, label='max distance')
+    t_dist_array = [0, 0, t_dist_array[2][0], t_dist_array[3][0], t_dist_array[4][0], t_dist_array[5][0]]
     plt.plot(x, t_dist_array, label='typical distance')
     plt.xlabel('count centers')
     plt.legend()

@@ -21,6 +21,46 @@ import utils.show
 # from utils.show import show_bayes_border
 
 
+def show_sup_vectors(sup_vectors0, sup_vectors1):
+    if sup_vectors0 is not None and sup_vectors0.size > 0:
+        plt.scatter(sup_vectors0[0, :], sup_vectors0[1, :], marker='o', color='c', alpha=0.6, s=100)
+    if sup_vectors1 is not None and sup_vectors1.size > 0:
+        plt.scatter(sup_vectors1[0, :], sup_vectors1[1, :], marker='o', color='fuchsia', alpha=0.6, s=100)
+
+
+def show_borders(x_borders, y_borders, colors_array, labels_array,
+                 markers_array):
+    for i in range(0, len(x_borders)):
+        plt.plot(x_borders[i], y_borders[i], color=colors_array[i], label=labels_array[i], marker=markers_array[i])
+    plt.legend()
+
+
+def show_separating_hyperplanes(title, samples0, samples1, W_array, colors_array, labels_array,
+                                markers_array):
+    plt.xlim(left=Constants.left, right=Constants.right)
+    plt.ylim(bottom=Constants.bot, top=Constants.top)
+    plt.title(title)
+    plt.plot(samples0[0], samples0[1], 'r.')
+    plt.plot(samples1[0], samples1[1], 'b.')
+
+    x_borders = []
+    y_borders = []
+    x_range = Constants.x_range_lab4
+    for i in range(0, len(W_array)):
+        W = W_array[i]
+        w = W[0]
+        wn = W[1]
+        x, y = lab3.get_border_lin_classificator(W, wn, x_range)
+        x_borders.append(x)
+        y_borders.append(y)
+        x_borders.append(x + 1 / w[0])
+        y_borders.append(y)
+        x_borders.append(x - 1 / w[0])
+        y_borders.append(y)
+        show_borders(np.array(x_borders), np.array(y_borders), colors_array[i], labels_array[i], markers_array[i])
+        x_borders = []
+        y_borders = []
+
 def get_svc(C, K, K_params):
     if K == 'poly':
         return SVC(C=C, kernel=K, degree=K_params[1], coef0=K_params[0])
@@ -268,7 +308,7 @@ def task2(samples0, samples1):
     W_qp = np.array([[w_qp[0], w_qp[1], wn_qp[0]]])
     utils.show.show_separating_hyperplanes('qp hyperplane', samples0, samples1, W_qp, np.array([qp_colors]), np.array([qp_labels]),
                                            np.array([qp_markers]))
-    utils.show_sup_vectors(sup_0_qp, sup_1_qp)
+    show_sup_vectors(sup_0_qp, sup_1_qp)
     plt.show()
 
     clf_svc = svm.SVC(kernel="linear", C=1)
@@ -279,10 +319,10 @@ def task2(samples0, samples1):
     support_vectors_svc_indices = clf_svc.support_
     w_svc = clf_svc.coef_.T
     wn_svc = clf_svc.intercept_[0]
-    W_svc = np.array([[w_svc, wn_svc]])
+    W_svc = np.array([[w_svc[0], w_svc[1], [wn_svc]]])
     sup_0_svc, sup_1_svc = separate_sup_vectors_with_indexes(dataset, support_vectors_svc_indices)
     show_separating_hyperplanes('svc hyperplanes', samples0, samples1, W_svc, np.array([svc_colors]),
-                                np.array([svc_labels]), np.array([svc_markers]))
+                                      np.array([svc_labels]), np.array([svc_markers]))
     show_sup_vectors(sup_0_svc, sup_1_svc)
     plt.show()
 
@@ -290,9 +330,9 @@ def task2(samples0, samples1):
     clf_lin.fit(X, Y)
     w_linear = clf_lin.coef_.T
     wn_linear = clf_lin.intercept_[0]
-    W_lin = np.array([[w_linear, wn_linear]])
+    W_lin = np.array([[w_linear, [wn_linear]]])
     show_separating_hyperplanes('lin hyperplanes', samples0, samples1, W_lin, np.array([linear_colors]),
-                                np.array([linear_labels]), np.array([linear_markers]))
+                                      np.array([linear_labels]), np.array([linear_markers]))
     plt.show()
 
     W_array = np.array([[w_qp, wn_qp], [w_svc, wn_svc], [w_linear, wn_linear]])
@@ -346,7 +386,7 @@ def task3(samples0, samples1):
         W_qp = np.array([[w_qp, wn_qp]])
         utils.show_separating_hyperplanes(f'C = {C} qp hyperplane', samples0, samples1, W_qp, np.array([qp_colors]),
                                           np.array([qp_labels]), np.array([qp_markers]))
-        utils.show_sup_vectors(sup_0_qp, sup_1_qp)
+        show_sup_vectors(sup_0_qp, sup_1_qp)
         utils.show_bayes_border(y, 'blue', 'bs', '|')
         plt.show()
         qp_errors_array.append(get_errors(dataset, w_qp, wn_qp))
@@ -358,9 +398,9 @@ def task3(samples0, samples1):
         wn_svc = clf_svc.intercept_[0]
         W_svc = np.array([[w_svc, wn_svc]])
         sup_0_svc, sup_1_svc = separate_sup_vectors(support_vectors_svc)
-        utils.show_separating_hyperplanes(f'C = {C} svc hyperlane', samples0, samples1, W_svc, np.array([svc_colors]),
+        show_separating_hyperplanes(f'C = {C} svc hyperlane', samples0, samples1, W_svc, np.array([svc_colors]),
                                           np.array([svc_labels]), np.array([svc_markers]))
-        utils.show_sup_vectors(sup_0_svc, sup_1_svc)
+        show_sup_vectors(sup_0_svc, sup_1_svc)
         utils.show_bayes_border(y, 'blue', 'bs', '|')
         plt.show()
         svc_errors_array.append(get_errors(dataset, w_svc, wn_svc))
@@ -508,6 +548,8 @@ if __name__ == '__main__':
 
     for i in range(0, len(kernel_array)):
         task4(samples0, samples1, kernel_array[i], kernel_params_array[i])
+
+    print('усё')
 
 
 def get_classification_error_for_bayes():

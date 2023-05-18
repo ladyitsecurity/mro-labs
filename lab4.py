@@ -3,7 +3,7 @@ import random
 
 import numpy as np
 from matplotlib import pyplot as plt
-from qpsolvers import solve_qp
+import qpsolvers
 from sklearn import svm
 import sklearn
 from sklearn.model_selection import train_test_split
@@ -243,7 +243,7 @@ def task2(samples0, samples1):
     b = np.zeros(1)
     G = np.eye(dataset.shape[1]) * -1
     h = np.zeros((dataset.shape[1],))
-    lambda_array = solve_qp(P, q, G, h, A, b, solver='cvxopt')
+    lambda_array = qpsolvers.solve_qp(P, q, G, h, A, b, solver='cvxopt')
 
     qp_colors = ['black', 'red', 'green']
     svc_colors = ['orange', 'purple', 'yellow']
@@ -336,7 +336,7 @@ def task3(samples0, samples1):
     for C in [0.1, 1, 10]:
         h = np.concatenate((np.zeros((dataset_len,)), np.full((dataset_len,), C)), axis=0)
 
-        lambda_array = solve_qp(P, q, G, h, A, b, solver='cvxopt')
+        lambda_array = qpsolvers.solve_qp(P, q, G, h, A, b, solver='cvxopt')
         sup_vectors_qp, sup_lambdas_qp = get_support_vectors(dataset, lambda_array)
         sup_vectors_qp = np.transpose(sup_vectors_qp)
         sup_0_qp, sup_1_qp = separate_sup_vectors(sup_vectors_qp)
@@ -403,7 +403,7 @@ def task4(samples0, samples1, kernel, kernel_params):
 
     for C in [0.1, 1, 10, 20]:
         h = np.concatenate((np.zeros((dataset_len,)), np.full((dataset_len,), C)), axis=0)
-        lambda_array = solve_qp(P, q, G, h, A, b, solver='cvxopt')
+        lambda_array = qpsolvers.solve_qp(P, q, G, h, A, b, solver='cvxopt')
         support_vectors_positions = lambda_array > eps
         sup_vectors, sup_lambdas = get_support_vectors(dataset, lambda_array)
         sup_vectors = np.transpose(sup_vectors)

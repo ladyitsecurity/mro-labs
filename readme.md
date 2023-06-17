@@ -17,3 +17,5 @@
 | Л14 - https://youtu.be/YawbtwPVl_U                                                                                                | [pdf](https://disk.yandex.ru/i/_YPsovpYtAIkXg)       | 
 | Л15 - https://youtu.be/SL6AQ6fud2s                                                                                                | [pdf](https://disk.yandex.ru/i/lLXcTLbNMMUgPQ)       | 
 | Л16 - https://youtu.be/fADuXSitd1I                                                                                                | [pdf](https://disk.yandex.ru/i/LLd5Hn1rVtpdcQ)       | 
+| Л17 - Для самостоятельного изучения (материал требуется для выполнение задач на практиках по 3(+4) темах.                         | [pdf](https://disk.yandex.ru/d/Fu5F_eUtzx3dRQ)       | 
+| Л18 - https://youtu.be/GKGAQhM2vl4                                                                                                | [pdf](https://disk.yandex.ru/d/lQ3LuXjwwhGb5Q)       | 

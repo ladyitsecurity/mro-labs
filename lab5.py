@@ -5,7 +5,6 @@ import lab1
 import lab2
 
 
-
 def get_euclidean_distance(x, y):
     x = x.reshape(2, )
     y = y.reshape(2, )
@@ -223,50 +222,50 @@ if __name__ == '__main__':
     show_samples([samples1, samples2, samples3, samples4, samples5], colors_array)
     plt.show()
 
-    samples_array = [samples1, samples2, samples3, samples4, samples5]
-    samples_array_result = concatenate_samples(samples_array)
-    plt.title(f'minmax for 5 classes')
-    res = samples_array_result
-    m_array, max_dist_array, t_dist_array = get_centres(res)
-    fig = plt.figure(figsize=(15, 5))
-    fig.add_subplot(1, 2, 1)
-    # print(m_array)
-    for j in range(0, 5):
-        lab1.show_vector_points1(samples_array[j], colors_array[j])
-    for m in m_array:
-        plt.scatter(m[0], m[1], marker='o', color='black', alpha=0.6, s=100)
-
-    fig.add_subplot(1, 2, 2)
-    plt.title(f'minmax for 5 classes')
-    x = np.arange(0, len(m_array) + 1)
-    plt.plot(x, max_dist_array, label='max distance')
-    t_dist_array = [0, 0, t_dist_array[2][0], t_dist_array[3][0], t_dist_array[4][0], t_dist_array[5][0]]
-    plt.plot(x, t_dist_array, label='typical distance')
-    plt.xlabel('count centers')
-    plt.legend()
-    plt.show()
-
-    samples_array = [samples1, samples2, samples3, samples4, samples5]
-    samples_array_result = concatenate_samples(samples_array)
-    rng = np.random.default_rng(2)
-    K = 3
-    indexes = rng.choice(range(samples_array_result.shape[1]), K, replace=False)
-    centers, classes, stats = k_means_method(samples_array_result, K, indexes)
-    fig = plt.figure(figsize=(15, 5))
-    fig.add_subplot(1, 2, 1)
-    plt.title(f'k means for {K} classes')
-    for k in range(len(classes)):
-        plt.scatter(classes[k][:, 0], classes[k][:, 1], label=f"cl{k}")
-    for c in centers:
-        plt.scatter(c[0], c[1], marker='o', color='black', alpha=0.6, s=100)
-    fig.add_subplot(1, 2, 2)
-    plt.title(f'k means for {K} classes')
-    x = np.arange(3, 3 + len(stats))
-    plt.plot(x, stats, label='dependence of the number of changes on the iteration number')
-    plt.xlabel('count iteration')
-    plt.ylabel('count changed vectors')
-    plt.legend()
-    plt.show()
+    # samples_array = [samples1, samples2, samples3, samples4, samples5]
+    # samples_array_result = concatenate_samples(samples_array)
+    # plt.title(f'minmax for 5 classes')
+    # res = samples_array_result
+    # m_array, max_dist_array, t_dist_array = get_centres(res)
+    # fig = plt.figure(figsize=(12, 5))
+    # fig.add_subplot(1, 2, 1)
+    # # print(m_array)
+    # for j in range(0, 5):
+    #     lab1.show_vector_points1(samples_array[j], colors_array[j])
+    # for m in m_array:
+    #     plt.scatter(m[0], m[1], marker='o', color='black', alpha=0.6, s=100)
+    #
+    # fig.add_subplot(1, 2, 2)
+    # plt.title(f'minmax for 5 classes')
+    # x = np.arange(0, len(m_array) + 1)
+    # plt.plot(x, max_dist_array, label='max distance')
+    # t_dist_array = [0, 0, t_dist_array[2][0], t_dist_array[3][0], t_dist_array[4][0], t_dist_array[5][0]]
+    # plt.plot(x, t_dist_array, label='typical distance')
+    # plt.xlabel('count centers')
+    # plt.legend()
+    # plt.show()
+    #
+    # samples_array = [samples1, samples2, samples3, samples4, samples5]
+    # samples_array_result = concatenate_samples(samples_array)
+    # rng = np.random.default_rng(2)
+    # K = 3
+    # indexes = rng.choice(range(samples_array_result.shape[1]), K, replace=False)
+    # centers, classes, stats = k_means_method(samples_array_result, K, indexes)
+    # fig = plt.figure(figsize=(15, 5))
+    # fig.add_subplot(1, 2, 1)
+    # plt.title(f'k means for {K} classes')
+    # for k in range(len(classes)):
+    #     plt.scatter(classes[k][:, 0], classes[k][:, 1], label=f"cl{k}")
+    # for c in centers:
+    #     plt.scatter(c[0], c[1], marker='o', color='black', alpha=0.6, s=100)
+    # fig.add_subplot(1, 2, 2)
+    # plt.title(f'k means for {K} classes')
+    # x = np.arange(3, 3 + len(stats))
+    # plt.plot(x, stats, label='dependence of the number of changes on the iteration number')
+    # plt.xlabel('count iteration')
+    # plt.ylabel('count changed vectors')
+    # plt.legend()
+    # plt.show()
 
     rng_array = [np.random.default_rng(42), np.random.default_rng(1)]
     for rng in rng_array:

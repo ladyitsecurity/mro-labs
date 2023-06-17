@@ -61,6 +61,7 @@ def show_separating_hyperplanes(title, samples0, samples1, W_array, colors_array
         x_borders = []
         y_borders = []
 
+
 def get_svc(C, K, K_params):
     if K == 'poly':
         return SVC(C=C, kernel=K, degree=K_params[1], coef0=K_params[0])
